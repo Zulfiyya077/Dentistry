@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Calendar, Clock, MessageSquare } from "lucide-react";
 import type { MockDentist } from "@/features/dentist/data/mock-dentists";
 import { dentistActionsService } from "@/features/dentist/services/dentist-actions.service";
+import { useAuth } from "@/providers/auth-provider";
 import { useTranslation } from "@/providers/locale-provider";
 import { showToast } from "@/lib/toast";
 import { Button } from "@/shared/ui/button";
@@ -32,6 +33,7 @@ export function BookAppointmentModal({
   onClose,
 }: BookAppointmentModalProps) {
   const { t } = useTranslation();
+  const { user } = useAuth();
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
   const [note, setNote] = useState("");
@@ -49,6 +51,8 @@ export function BookAppointmentModal({
     dentistActionsService.bookAppointment({
       dentistId: dentist.id,
       dentistName: dentist.fullName,
+      dentistSlug: dentist.slug,
+      patientName: user?.displayName,
       date,
       time,
       note: note.trim() || undefined,

@@ -36,6 +36,8 @@ export const en = {
     dentistNotFound: "Dentist Not Found",
     dentistNotFoundDesc: "The dentist profile you're looking for doesn't exist.",
     comingSoon: "Coming in the next phase",
+    photoPlaceholder: "Clinic / portrait photo",
+    coverPhotoPlaceholder: "Cover photo",
   },
   nav: {
     discover: "Discover",
@@ -145,6 +147,7 @@ export const en = {
     unfollowSuccess: "Unfollowed successfully",
     following: "Following",
     bookmark: "Bookmark",
+    bookmarkSaved: "Saved",
     bookmarkSuccess: "Saved to bookmarks",
     bookmarkRemoved: "Removed from bookmarks",
     linkCopied: "Link copied to clipboard",
@@ -228,6 +231,7 @@ export const en = {
       noFollows: "You're not following any dentists yet",
       noAppointments: "You haven't booked any appointments yet",
       browse: "Browse dentists",
+      appointmentsSubtitle: "Your appointment history and statuses",
     },
     doctor: {
       title: "Dentist Dashboard",
@@ -243,6 +247,32 @@ export const en = {
       profileNotLinked: "Public profile is not active yet",
       profileNotLinkedHint:
         "Your account is created, but portfolio details haven't been added yet.",
+      editProfileSubtitle: "Update your public profile information",
+      sectionBasic: "Basic information",
+      sectionProfessional: "Professional details",
+      titleAz: "Title (AZ)",
+      titleEn: "Title (EN)",
+      biographyAz: "Biography (AZ)",
+      biographyEn: "Biography (EN)",
+      saveProfile: "Save profile",
+      saving: "Saving...",
+      profileSaved: "Profile updated successfully",
+      managePortfolio: "Portfolio",
+      managePortfolioSubtitle: "Manage your before/after cases",
+      addCase: "Add new case",
+      editCase: "Edit",
+      deleteCase: "Delete",
+      saveCase: "Save case",
+      portfolioSaved: "Portfolio case saved",
+      portfolioDeleted: "Portfolio case deleted",
+      noPortfolioCases: "No portfolio cases yet",
+      caseTitleAz: "Title (AZ)",
+      caseTitleEn: "Title (EN)",
+      caseDescAz: "Description (AZ)",
+      caseDescEn: "Description (EN)",
+      manageAppointments: "Appointments",
+      manageAppointmentsSubtitle: "Manage patient appointment requests",
+      recentAppointments: "Recent appointments",
     },
     admin: {
       title: "Admin Dashboard",
@@ -255,7 +285,267 @@ export const en = {
       totalBookmarks: "Bookmarks",
       manageUsers: "Users",
       manageVerifications: "Verifications",
+      manageUsersHint: "Manage all platform users",
+      manageVerificationsHint: "Review dentist verification requests",
+      recentPending: "Recent pending verifications",
+      viewAll: "View all",
+      review: "Review",
+      nav: {
+        overview: "Overview",
+        users: "Users",
+        verifications: "Verifications",
+        reviews: "Reviews",
+        documents: "Documents",
+      },
+      roles: {
+        guest: "Guest",
+        patient: "Patient",
+        doctor: "Dentist",
+        admin: "Admin",
+      },
+      users: {
+        title: "Users",
+        subtitle: "Platform user management",
+        search: "Search by name or email...",
+        allRoles: "All roles",
+        name: "Name",
+        email: "Email",
+        role: "Role",
+        status: "Status",
+        actions: "Actions",
+        active: "Active",
+        suspendedLabel: "Suspended",
+        suspend: "Suspend",
+        activate: "Activate",
+        suspended: "User suspended",
+        activated: "User activated",
+        cannotSuspendAdmin: "Admin accounts cannot be suspended",
+        empty: "No users found",
+        demo: "Demo",
+        total: "{count} users",
+      },
+      verifications: {
+        title: "Verifications",
+        subtitle: "Dentist profile verification requests",
+        pending: "Pending",
+        approved: "Approved",
+        rejected: "Rejected",
+        all: "All",
+        empty: "No verification requests",
+        pendingCount: "{count} pending",
+        approve: "Approve",
+        reject: "Reject",
+        approvedToast: "Profile approved",
+        rejectedToast: "Profile rejected",
+        viewProfile: "View profile",
+        newRegistration: "New registration",
+      },
+      reviews: {
+        title: "Review moderation",
+        subtitle: "Review and approve patient feedback",
+        pending: "Pending",
+        approved: "Approved",
+        rejected: "Rejected",
+        all: "All",
+        queue: "Moderation queue",
+        empty: "No reviews found",
+        pendingCount: "{count} pending",
+        approve: "Approve",
+        reject: "Reject",
+        approvedToast: "Review approved",
+        rejectedToast: "Review rejected",
+        viewProfile: "View profile",
+        newSubmission: "New review",
+        manageReviewsHint: "Moderate patient reviews",
+      },
+      documents: {
+        title: "Document verification",
+        subtitle: "Review diploma and license documents",
+        empty: "No documents found",
+        pendingCount: "{count} pending",
+        downloadPdf: "Download PDF",
+        demoNoFile: "Demo document — no file attached",
+      },
     },
     comingSoon: "Coming soon",
+    appointments: {
+      pending: "Pending",
+      confirmed: "Confirmed",
+      cancelled: "Cancelled",
+      all: "All",
+      empty: "No appointments found",
+      pendingCount: "{count} pending",
+      confirm: "Confirm",
+      cancel: "Cancel",
+      confirmedToast: "Appointment confirmed",
+      cancelledToast: "Appointment cancelled",
+      guestPatient: "Guest patient",
+    },
+  },
+  credentials: {
+    sectionLabel: "Professional documents",
+    uploadTitle: "Upload credentials",
+    uploadSubtitle:
+      "Upload your diploma and medical license as PDF or image. After admin approval, a document verification badge appears on your profile.",
+    documentVerified: "Document verified",
+    verifiedDescription:
+      "This dentist's diploma and license documents have been reviewed and approved by our admin team.",
+    verifiedDocuments: "Verified documents",
+    newUpload: "New document",
+    docType: "Document type",
+    docTitle: "Document title",
+    docTitlePlaceholder: "e.g. Dentistry diploma",
+    file: "File",
+    fileHint: "PDF, JPG, PNG or WEBP · max 3 MB",
+    submit: "Upload",
+    uploading: "Uploading...",
+    uploadSuccess: "Document uploaded — awaiting admin approval",
+    uploadError: "File too large or upload failed",
+    myDocuments: "My uploaded documents",
+    noDocuments: "No documents uploaded yet",
+    approvedToast: "Document approved",
+    rejectedToast: "Document rejected",
+    types: {
+      diploma: "Diploma",
+      license: "Medical license",
+      certificate: "Certificate",
+    },
+  },
+  pages: {
+    about: {
+      title: "About Us",
+      subtitle: "A trusted platform for dentists and patients",
+      intro:
+        "Dentistry helps dentists build professional portfolios and helps patients find the right specialist. Our mission is to create a dental ecosystem built on transparency, quality, and trust.",
+      ctaTitle: "Build your professional portfolio",
+      ctaText: "Reach thousands of patients and grow your reputation.",
+      values: {
+        trust: {
+          title: "Trust",
+          description:
+            "Only verified dentists and moderated patient reviews.",
+        },
+        transparency: {
+          title: "Transparency",
+          description:
+            "Portfolios, credentials, and real patient reviews in one place.",
+        },
+        quality: {
+          title: "Quality",
+          description:
+            "Professional-grade profile and portfolio presentation.",
+        },
+      },
+    },
+    contact: {
+      title: "Contact",
+      subtitle: "Have questions? Get in touch with us.",
+      email: "Email",
+      phone: "Phone",
+      address: "Address",
+      addressValue: "Baku, Azerbaijan",
+      formTitle: "Send a message",
+      name: "Your name",
+      emailPlaceholder: "Your email address",
+      message: "Your message",
+      send: "Send",
+      sending: "Sending...",
+      success: "Your message was received. We'll respond shortly.",
+    },
+    faq: {
+      title: "Frequently Asked Questions",
+      subtitle: "Common questions about the platform",
+      items: {
+        what: {
+          question: "What is Dentistry?",
+          answer:
+            "Dentistry is a professional portfolio and reputation platform for dentists. Dentists showcase their work while patients discover verified specialists.",
+        },
+        verified: {
+          question: "What does verified dentist mean?",
+          answer:
+            "Verified dentists have had their diplomas and credentials reviewed by our admin team, increasing profile trustworthiness.",
+        },
+        pricing: {
+          question: "How does pricing work?",
+          answer:
+            "We offer Free, Pro, and Premium plans with different portfolio limits and analytics features.",
+        },
+        reviews: {
+          question: "How are reviews moderated?",
+          answer:
+            "All patient reviews are checked by admins before publication to prevent fake or inappropriate content.",
+        },
+        appointment: {
+          question: "How do I book an appointment?",
+          answer:
+            "Select a date and time from the dentist's profile. Appointments appear in your dashboard.",
+        },
+      },
+    },
+    privacy: {
+      title: "Privacy Policy",
+      subtitle: "How we protect your personal data",
+      updated: "Last updated: 2026",
+      sections: {
+        collection: {
+          title: "Data collection",
+          content:
+            "We collect name, email, and professional information during registration and profile creation. This data is used solely to provide platform services.",
+        },
+        usage: {
+          title: "Data usage",
+          content:
+            "Your data is used for profile display, search results, verification processes, and platform security.",
+        },
+        sharing: {
+          title: "Data sharing",
+          content:
+            "We do not sell your personal data. It is only shared when legally required or with your explicit consent.",
+        },
+        security: {
+          title: "Security",
+          content:
+            "We apply modern encryption and security measures to protect your information.",
+        },
+        rights: {
+          title: "Your rights",
+          content:
+            "You have the right to access, correct, or delete your data. Contact us to exercise these rights.",
+        },
+      },
+    },
+    terms: {
+      title: "Terms of Service",
+      subtitle: "Rules for using the platform",
+      updated: "Last updated: 2026",
+      sections: {
+        acceptance: {
+          title: "Acceptance of terms",
+          content:
+            "By using the Dentistry platform, you agree to these terms of service.",
+        },
+        accounts: {
+          title: "Accounts",
+          content:
+            "You are responsible for the accuracy and security of your account credentials.",
+        },
+        content: {
+          title: "Content",
+          content:
+            "You are responsible for the accuracy of portfolio and profile information you share.",
+        },
+        conduct: {
+          title: "Conduct rules",
+          content:
+            "Fake information, abusive reviews, or illegal activity is prohibited.",
+        },
+        liability: {
+          title: "Limitation of liability",
+          content:
+            "Dentistry is not directly responsible for the quality of dental services provided.",
+        },
+      },
+    },
   },
 };

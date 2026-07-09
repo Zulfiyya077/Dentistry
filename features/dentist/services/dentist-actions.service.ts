@@ -1,3 +1,5 @@
+import { AppointmentStatus } from "@/types/enums";
+
 const FOLLOWS_KEY = "dentistry-follows";
 const BOOKMARKS_KEY = "dentistry-bookmarks";
 const APPOINTMENTS_KEY = "dentistry-appointments";
@@ -6,9 +8,12 @@ export interface MockAppointment {
   id: string;
   dentistId: string;
   dentistName: string;
+  dentistSlug?: string;
+  patientName?: string;
   date: string;
   time: string;
   note?: string;
+  status: AppointmentStatus;
   createdAt: string;
 }
 
@@ -24,6 +29,21 @@ function readJson<T>(key: string, fallback: T): T {
 
 function writeJson<T>(key: string, value: T) {
   localStorage.setItem(key, JSON.stringify(value));
+}
+
+function normalizeAppointment(apt: MockAppointment): MockAppointment {
+  return {
+    ...apt,
+    status: apt.status ?? AppointmentStatus.PENDING,
+  };
+}
+
+function readAppointments(): MockAppointment[] {
+  return readJson<MockAppointment[]>(APPOINTMENTS_KEY, []).map(normalizeAppointment);
+}
+
+function writeAppointments(appointments: MockAppointment[]) {
+  writeJson(APPOINTMENTS_KEY, appointments);
 }
 
 export const dentistActionsService = {
@@ -58,7 +78,31 @@ export const dentistActionsService = {
   },
 
   getAppointments(): MockAppointment[] {
-    return readJson<MockAppointment[]>(APPOINTMENTS_KEY, []);
+    return readAppointments();
+  },
+
+  getAppointmentsForDentist(dentistId: string): MockAppointment[] {
+    return readAppointments()
+      .filter((a) => a.dentistId === dentistId)
+      .sort(
+        (a, b) =>
+          new Date(`${b.date}T${b.time}`).getTime() -
+          new Date(`${a.date}T${a.time}`).getTime()
+      );
+  },
+
+  getPendingCountForDentist(dentistId: string): number {
+    return this.getAppointmentsForDentist(dentistId).filter(
+      (a) => a.status === AppointmentStatus.PENDING
+    ).length;
+  },
+
+  updateAppointmentStatus(id: string, status: AppointmentStatus) {
+    const appointments = readAppointments();
+    const index = appointments.findIndex((a) => a.id === id);
+    if (index === -1) return;
+    appointments[index] = { ...appointments[index], status };
+    writeAppointments(appointments);
   },
 
   getFollowerCount(dentistId: string): number {
@@ -74,15 +118,20 @@ export const dentistActionsService = {
     return readJson<string[]>(BOOKMARKS_KEY, []);
   },
 
-  bookAppointment(data: Omit<MockAppointment, "id" | "createdAt">): MockAppointment {
-    const appointments = readJson<MockAppointment[]>(APPOINTMENTS_KEY, []);
+  bookAppointment(
+    data: Omit<MockAppointment, "id" | "createdAt" | "status"> & {
+      status?: AppointmentStatus;
+    }
+  ): MockAppointment {
+    const appointments = readAppointments();
     const appointment: MockAppointment = {
       ...data,
+      status: data.status ?? AppointmentStatus.PENDING,
       id: `apt-${Date.now()}`,
       createdAt: new Date().toISOString(),
     };
     appointments.push(appointment);
-    writeJson(APPOINTMENTS_KEY, appointments);
+    writeAppointments(appointments);
     return appointment;
   },
 

@@ -29,8 +29,8 @@ export function Footer() {
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-1">
             <div className="flex items-center gap-2">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary">
-                <span className="text-sm font-bold text-white">D</span>
+              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
+                <span className="text-xs font-bold text-primary-foreground">DR</span>
               </div>
               <span className="text-lg font-bold">{t("common.appName")}</span>
             </div>

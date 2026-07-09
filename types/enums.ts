@@ -28,3 +28,15 @@ export enum ReportStatus {
   RESOLVED = "resolved",
   DISMISSED = "dismissed",
 }
+
+export enum AppointmentStatus {
+  PENDING = "pending",
+  CONFIRMED = "confirmed",
+  CANCELLED = "cancelled",
+}
+
+export enum CredentialDocumentType {
+  DIPLOMA = "diploma",
+  MEDICAL_LICENSE = "medical_license",
+  SPECIALIZATION_CERT = "specialization_cert",
+}

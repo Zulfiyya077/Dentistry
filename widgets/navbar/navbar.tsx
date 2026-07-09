@@ -2,16 +2,6 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import {
-  LayoutDashboard,
-  LogOut,
-  Menu,
-  Moon,
-  Search,
-  Sun,
-  User,
-  X,
-} from "lucide-react";
 import { useTheme } from "next-themes";
 import { useAuth } from "@/providers/auth-provider";
 import { useTranslation } from "@/providers/locale-provider";
@@ -35,27 +25,26 @@ export function Navbar() {
   const { user, isAuthenticated, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-50 w-full">
-      <nav className="glass border-b border-border/50">
-        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl gradient-primary">
-              <span className="text-sm font-bold text-white">D</span>
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-card/95 backdrop-blur-sm">
+      <nav>
+        <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <Link href="/" className="flex items-center gap-2.5">
+            <div className="flex h-8 w-8 items-center justify-center rounded-md bg-primary">
+              <span className="text-xs font-bold tracking-wider text-primary-foreground">
+                DR
+              </span>
             </div>
-            <span className="text-lg font-bold tracking-tight">
+            <span className="text-base font-semibold tracking-tight">
               {t("common.appName")}
             </span>
           </Link>
 
           <div className="hidden flex-1 items-center justify-center px-8 md:flex">
-            <div className="relative w-full max-w-md">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <input
-                type="search"
-                placeholder={t("nav.searchPlaceholder")}
-                className="h-10 w-full rounded-xl border border-border bg-background/50 pl-10 pr-4 text-sm outline-none transition-all placeholder:text-muted-foreground focus:border-primary focus:ring-2 focus:ring-primary/20"
-              />
-            </div>
+            <input
+              type="search"
+              placeholder={t("nav.searchPlaceholder")}
+              className="h-9 w-full max-w-md rounded-md border border-border bg-background px-3 text-sm outline-none transition-colors placeholder:text-muted-foreground focus:border-ring focus:ring-1 focus:ring-ring"
+            />
           </div>
 
           <div className="hidden items-center gap-1 md:flex">
@@ -63,7 +52,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                className="rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
               >
                 {t(link.key)}
               </Link>
@@ -75,11 +64,10 @@ export function Navbar() {
 
             <button
               onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="relative flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              className="hidden h-9 rounded-md px-2 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground sm:block"
               aria-label="Toggle theme"
             >
-              <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-              <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+              {theme === "dark" ? "Light" : "Dark"}
             </button>
 
             {isAuthenticated && user ? (
@@ -87,9 +75,9 @@ export function Navbar() {
                 <button
                   type="button"
                   onClick={() => setUserMenuOpen(!userMenuOpen)}
-                  className="flex items-center gap-2 rounded-xl border border-border bg-card px-3 py-1.5 text-sm transition-colors hover:bg-muted"
+                  className="flex items-center gap-2 rounded-md border border-border bg-background px-2.5 py-1.5 text-sm transition-colors hover:bg-muted"
                 >
-                  <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary/10 text-xs font-bold text-primary">
+                  <div className="flex h-7 w-7 items-center justify-center rounded-md bg-muted text-xs font-semibold">
                     {user.displayName.charAt(0)}
                   </div>
                   <span className="max-w-[100px] truncate font-medium">
@@ -103,26 +91,28 @@ export function Navbar() {
                       className="fixed inset-0 z-40"
                       onClick={() => setUserMenuOpen(false)}
                     />
-                    <div className="absolute right-0 z-50 mt-2 w-52 rounded-xl border border-border bg-card py-2 shadow-elevated">
-                      <div className="border-b border-border px-4 py-2">
-                        <p className="truncate text-sm font-medium">{user.displayName}</p>
-                        <p className="truncate text-xs text-muted-foreground">{user.email}</p>
+                    <div className="absolute right-0 z-50 mt-2 w-52 rounded-md border border-border bg-card py-1 shadow-elevated">
+                      <div className="border-b border-border px-4 py-2.5">
+                        <p className="truncate text-sm font-medium">
+                          {user.displayName}
+                        </p>
+                        <p className="truncate text-xs text-muted-foreground">
+                          {user.email}
+                        </p>
                       </div>
                       <Link
                         href="/dashboard"
-                        className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-muted"
+                        className="block px-4 py-2 text-sm hover:bg-muted"
                         onClick={() => setUserMenuOpen(false)}
                       >
-                        <LayoutDashboard className="h-4 w-4" />
                         {t("auth.dashboard")}
                       </Link>
                       {user.role === UserRole.DOCTOR && user.dentistSlug && (
                         <Link
                           href={`/dentists/${user.dentistSlug}`}
-                          className="flex items-center gap-2 px-4 py-2 text-sm hover:bg-muted"
+                          className="block px-4 py-2 text-sm hover:bg-muted"
                           onClick={() => setUserMenuOpen(false)}
                         >
-                          <User className="h-4 w-4" />
                           {t("auth.myProfile")}
                         </Link>
                       )}
@@ -132,9 +122,8 @@ export function Navbar() {
                           setUserMenuOpen(false);
                           logout();
                         }}
-                        className="flex w-full items-center gap-2 px-4 py-2 text-sm text-destructive hover:bg-muted"
+                        className="block w-full px-4 py-2 text-left text-sm text-destructive hover:bg-muted"
                       >
-                        <LogOut className="h-4 w-4" />
                         {t("auth.logout")}
                       </button>
                     </div>
@@ -155,18 +144,18 @@ export function Navbar() {
             )}
 
             <button
-              className="flex h-9 w-9 items-center justify-center rounded-lg md:hidden"
+              className="rounded-md px-2 py-1 text-sm md:hidden"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Toggle menu"
             >
-              {mobileOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              {mobileOpen ? "✕" : "☰"}
             </button>
           </div>
         </div>
 
         <div
           className={cn(
-            "overflow-hidden border-t border-border/50 md:hidden",
+            "overflow-hidden border-t border-border md:hidden",
             mobileOpen ? "max-h-[32rem]" : "max-h-0"
           )}
         >
@@ -178,7 +167,7 @@ export function Navbar() {
               <Link
                 key={link.href}
                 href={link.href}
-                className="block rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-muted"
+                className="block rounded-md px-3 py-2 text-sm text-muted-foreground hover:bg-muted"
                 onClick={() => setMobileOpen(false)}
               >
                 {t(link.key)}
@@ -188,7 +177,7 @@ export function Navbar() {
               <div className="space-y-1 pt-2">
                 <Link
                   href="/dashboard"
-                  className="block rounded-lg px-3 py-2 text-sm font-medium hover:bg-muted"
+                  className="block rounded-md px-3 py-2 text-sm font-medium hover:bg-muted"
                   onClick={() => setMobileOpen(false)}
                 >
                   {t("auth.dashboard")}
@@ -199,7 +188,7 @@ export function Navbar() {
                     setMobileOpen(false);
                     logout();
                   }}
-                  className="block w-full rounded-lg px-3 py-2 text-left text-sm text-destructive hover:bg-muted"
+                  className="block w-full rounded-md px-3 py-2 text-left text-sm text-destructive hover:bg-muted"
                 >
                   {t("auth.logout")}
                 </button>

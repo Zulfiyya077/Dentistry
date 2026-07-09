@@ -3,15 +3,10 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import {
-  BadgeCheck,
-  Bookmark,
-  MapPin,
-  Star,
-  Users,
-} from "lucide-react";
 import type { MockDentist } from "@/features/dentist/data/mock-dentists";
 import { dentistActionsService } from "@/features/dentist/services/dentist-actions.service";
+import { credentialDocumentsService } from "@/features/dentist/services/credential-documents.service";
+import { dentistProfileService } from "@/features/dentist/services/dentist-profile.service";
 import { resolveLocalized } from "@/lib/i18n/types";
 import { useTranslation } from "@/providers/locale-provider";
 import { showToast } from "@/lib/toast";
@@ -26,10 +21,19 @@ interface DentistCardProps {
 export function DentistCard({ dentist, index = 0 }: DentistCardProps) {
   const { locale, t } = useTranslation();
   const [isBookmarked, setIsBookmarked] = useState(false);
+  const [coverUrl, setCoverUrl] = useState<string | undefined>();
+  const [avatarUrl, setAvatarUrl] = useState<string | undefined>();
+  const [documentVerified, setDocumentVerified] = useState(false);
 
   useEffect(() => {
     setIsBookmarked(dentistActionsService.isBookmarked(dentist.id));
-  }, [dentist.id]);
+    const merged = dentistProfileService.getMergedProfile(dentist.slug);
+    setCoverUrl(merged?.coverImageUrl);
+    setAvatarUrl(merged?.avatarImageUrl);
+    setDocumentVerified(
+      credentialDocumentsService.isDocumentVerified(dentist.slug)
+    );
+  }, [dentist.id, dentist.slug]);
 
   const handleBookmark = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -43,51 +47,34 @@ export function DentistCard({ dentist, index = 0 }: DentistCardProps) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay: index * 0.05 }}
+      transition={{ duration: 0.35, delay: index * 0.04 }}
     >
       <Link href={`/dentists/${dentist.slug}`}>
-        <article className="group relative overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-all duration-300 hover:-translate-y-1 hover:shadow-elevated">
-          <div className="relative h-52 overflow-hidden">
-            <div
-              className={cn(
-                "absolute inset-0 bg-gradient-to-br transition-transform duration-500 group-hover:scale-105",
-                dentist.coverGradient
-              )}
-            />
+        <article className="group surface-card overflow-hidden transition-shadow hover:shadow-card">
+          <div className="relative aspect-[16/10] overflow-hidden bg-muted">
+            {coverUrl ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img
+                src={coverUrl}
+                alt=""
+                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+              />
+            ) : (
+              <div className="flex h-full items-end bg-gradient-to-b from-muted to-muted-foreground/10 p-4">
+                <p className="text-xs text-muted-foreground">
+                  {t("common.photoPlaceholder")}
+                </p>
+              </div>
+            )}
 
-            <div className="absolute inset-0 flex translate-y-full gap-1 p-2 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100">
-              {dentist.portfolioPreview.map((color, i) => (
-                <div
-                  key={i}
-                  className={cn(
-                    "flex-1 rounded-lg bg-gradient-to-br shadow-inner",
-                    color
-                  )}
-                />
-              ))}
-            </div>
-
-            <div className="absolute bottom-4 left-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-card text-xl font-bold text-primary shadow-card ring-4 ring-card transition-transform duration-300 group-hover:scale-105">
-              {dentist.avatarInitial}
-            </div>
-
-            <div className="absolute right-3 top-3 flex flex-wrap justify-end gap-1.5">
-              {dentist.isVerified && (
-                <Badge variant="verified">
-                  <BadgeCheck className="h-3 w-3" />
-                  {t("common.verified")}
-                </Badge>
+            <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
+              {documentVerified && (
+                <Badge variant="document">{t("credentials.documentVerified")}</Badge>
               )}
-              {dentist.isFeatured && (
-                <Badge variant="premium">{t("common.topRated")}</Badge>
-              )}
-              {dentist.isOnline && (
-                <Badge variant="secondary">
-                  <span className="h-1.5 w-1.5 rounded-full bg-success" />
-                  {t("common.online")}
-                </Badge>
+              {dentist.isVerified && !documentVerified && (
+                <Badge variant="verified">{t("common.verified")}</Badge>
               )}
             </div>
 
@@ -95,51 +82,52 @@ export function DentistCard({ dentist, index = 0 }: DentistCardProps) {
               type="button"
               onClick={handleBookmark}
               className={cn(
-                "absolute bottom-4 right-4 flex h-9 w-9 items-center justify-center rounded-xl bg-card/90 shadow-soft backdrop-blur-sm transition-all group-hover:opacity-100",
+                "absolute bottom-3 right-3 rounded-md border border-border bg-card/95 px-2 py-1 text-xs font-medium transition-opacity",
                 isBookmarked
                   ? "text-primary opacity-100"
-                  : "text-muted-foreground opacity-0 hover:text-primary"
+                  : "text-muted-foreground opacity-0 group-hover:opacity-100"
               )}
-              aria-label={t("profile.bookmark")}
             >
-              <Bookmark
-                className={cn("h-4 w-4", isBookmarked && "fill-current")}
-              />
+              {isBookmarked ? t("profile.bookmarkSaved") : t("profile.bookmark")}
             </button>
           </div>
 
-          <div className="p-5">
-            <h3 className="font-semibold leading-tight transition-colors group-hover:text-primary">
-              {dentist.fullName}
-            </h3>
-            <p className="mt-1 text-sm text-muted-foreground">
-              {resolveLocalized(dentist.specialization, locale)}
-            </p>
-
-            <div className="mt-3 flex items-center gap-1.5 text-sm text-muted-foreground">
-              <MapPin className="h-3.5 w-3.5 shrink-0" />
-              <span>
-                {resolveLocalized(dentist.city, locale)},{" "}
-                {resolveLocalized(dentist.country, locale)}
-              </span>
+          <div className="flex gap-4 p-4">
+            <div className="h-14 w-14 shrink-0 overflow-hidden rounded-md border border-border bg-muted">
+              {avatarUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={avatarUrl}
+                  alt={dentist.fullName}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div className="flex h-full w-full items-center justify-center text-lg font-semibold text-muted-foreground">
+                  {dentist.avatarInitial}
+                </div>
+              )}
             </div>
 
-            <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
-              <div className="flex items-center gap-1.5">
-                <Star className="h-4 w-4 fill-warning text-warning" />
-                <span className="font-semibold">{dentist.rating}</span>
-                <span className="text-sm text-muted-foreground">
-                  ({dentist.reviewCount})
+            <div className="min-w-0 flex-1">
+              <h3 className="truncate font-semibold leading-tight">
+                {dentist.fullName}
+              </h3>
+              <p className="mt-0.5 truncate text-sm text-muted-foreground">
+                {resolveLocalized(dentist.specialization, locale)}
+              </p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                {resolveLocalized(dentist.city, locale)},{" "}
+                {resolveLocalized(dentist.country, locale)}
+              </p>
+              <div className="mt-3 flex items-center justify-between border-t border-border pt-3 text-sm">
+                <span>
+                  <span className="font-semibold">{dentist.rating}</span>
+                  <span className="text-muted-foreground">
+                    {" "}
+                    · {dentist.reviewCount} {t("common.reviews")}
+                  </span>
                 </span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-muted-foreground">
-                <span className="flex items-center gap-1">
-                  <Users className="h-3.5 w-3.5" />
-                  {dentist.followerCount}
-                </span>
-                <span className="font-medium text-foreground">
-                  {dentist.priceRange}
-                </span>
+                <span className="font-medium">{dentist.priceRange}</span>
               </div>
             </div>
           </div>

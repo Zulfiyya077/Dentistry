@@ -79,6 +79,8 @@ export interface MockPortfolioCase {
   duration: LocalizedString;
   beforeColor: string;
   afterColor: string;
+  beforeImageUrl?: string;
+  afterImageUrl?: string;
   galleryColors: string[];
 }
 
@@ -120,6 +122,8 @@ export interface MockDentist {
   licenseNumber: string;
   avatarInitial: string;
   coverGradient: string;
+  avatarImageUrl?: string;
+  coverImageUrl?: string;
   portfolioPreview: [string, string, string];
   services: LocalizedString[];
   associations: LocalizedString[];

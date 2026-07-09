@@ -36,6 +36,8 @@ export const az = {
     dentistNotFound: "Stomatoloq tapılmadı",
     dentistNotFoundDesc: "Axtardığınız stomatoloq profili mövcud deyil.",
     comingSoon: "Növbəti mərhələdə əlavə olunacaq",
+    photoPlaceholder: "Klinika / portret foto",
+    coverPhotoPlaceholder: "Örtük foto",
   },
   nav: {
     discover: "Kəşf et",
@@ -145,6 +147,7 @@ export const az = {
     unfollowSuccess: "İzləmə dayandırıldı",
     following: "İzlənilir",
     bookmark: "Yadda saxla",
+    bookmarkSaved: "Saxlanılıb",
     bookmarkSuccess: "Yadda saxlanıldı",
     bookmarkRemoved: "Yadda saxlanmadan silindi",
     linkCopied: "Link kopyalandı",
@@ -228,6 +231,7 @@ export const az = {
       noFollows: "Hələ heç bir stomatoloqu izləmirsiniz",
       noAppointments: "Hələ qəbul yazdırmamısınız",
       browse: "Stomatoloqlara bax",
+      appointmentsSubtitle: "Qəbul tarixçəniz və statusları",
     },
     doctor: {
       title: "Stomatoloq Paneli",
@@ -243,6 +247,32 @@ export const az = {
       profileNotLinked: "İctimai profil hələ aktiv deyil",
       profileNotLinkedHint:
         "Profiliniz yaradılıb, amma portfoliyo məlumatları hələ əlavə olunmayıb.",
+      editProfileSubtitle: "İctimai profil məlumatlarınızı yeniləyin",
+      sectionBasic: "Əsas məlumatlar",
+      sectionProfessional: "Peşəkar məlumatlar",
+      titleAz: "Vəzifə (AZ)",
+      titleEn: "Vəzifə (EN)",
+      biographyAz: "Bioqrafiya (AZ)",
+      biographyEn: "Bioqrafiya (EN)",
+      saveProfile: "Yadda saxla",
+      saving: "Yadda saxlanılır...",
+      profileSaved: "Profil uğurla yeniləndi",
+      managePortfolio: "Portfoliyo",
+      managePortfolioSubtitle: "Before/after işlərinizi idarə edin",
+      addCase: "Yeni iş əlavə et",
+      editCase: "Redaktə et",
+      deleteCase: "Sil",
+      saveCase: "Yadda saxla",
+      portfolioSaved: "Portfoliyo işi yadda saxlanıldı",
+      portfolioDeleted: "Portfoliyo işi silindi",
+      noPortfolioCases: "Hələ portfoliyo işi yoxdur",
+      caseTitleAz: "Başlıq (AZ)",
+      caseTitleEn: "Başlıq (EN)",
+      caseDescAz: "Təsvir (AZ)",
+      caseDescEn: "Təsvir (EN)",
+      manageAppointments: "Qəbullar",
+      manageAppointmentsSubtitle: "Pasiyent qəbul sorğularını idarə edin",
+      recentAppointments: "Son qəbullar",
     },
     admin: {
       title: "Admin Paneli",
@@ -255,8 +285,268 @@ export const az = {
       totalBookmarks: "Yadda saxlanılanlar",
       manageUsers: "İstifadəçilər",
       manageVerifications: "Təsdiqlər",
+      manageUsersHint: "Bütün istifadəçiləri idarə et",
+      manageVerificationsHint: "Stomatoloq təsdiq sorğularını nəzərdən keçir",
+      recentPending: "Son gözləyən təsdiqlər",
+      viewAll: "Hamısına bax",
+      review: "Nəzərdən keçir",
+      nav: {
+        overview: "Ümumi baxış",
+        users: "İstifadəçilər",
+        verifications: "Təsdiqlər",
+        reviews: "Rəylər",
+        documents: "Sənədlər",
+      },
+      roles: {
+        guest: "Qonaq",
+        patient: "Pasiyent",
+        doctor: "Stomatoloq",
+        admin: "Admin",
+      },
+      users: {
+        title: "İstifadəçilər",
+        subtitle: "Platforma istifadəçilərinin idarəetməsi",
+        search: "Ad və ya e-poçt ilə axtar...",
+        allRoles: "Bütün rollar",
+        name: "Ad",
+        email: "E-poçt",
+        role: "Rol",
+        status: "Status",
+        actions: "Əməliyyatlar",
+        active: "Aktiv",
+        suspendedLabel: "Dayandırılıb",
+        suspend: "Dayandır",
+        activate: "Aktiv et",
+        suspended: "İstifadəçi dayandırıldı",
+        activated: "İstifadəçi aktiv edildi",
+        cannotSuspendAdmin: "Admin hesabı dayandırıla bilməz",
+        empty: "İstifadəçi tapılmadı",
+        demo: "Demo",
+        total: "{count} istifadəçi",
+      },
+      verifications: {
+        title: "Təsdiqlər",
+        subtitle: "Stomatoloq profil təsdiq sorğuları",
+        pending: "Gözləyir",
+        approved: "Təsdiqlənib",
+        rejected: "Rədd edilib",
+        all: "Hamısı",
+        empty: "Təsdiq sorğusu yoxdur",
+        pendingCount: "{count} gözləyən",
+        approve: "Təsdiqlə",
+        reject: "Rədd et",
+        approvedToast: "Profil təsdiqləndi",
+        rejectedToast: "Profil rədd edildi",
+        viewProfile: "Profilə bax",
+        newRegistration: "Yeni qeydiyyat",
+      },
+      reviews: {
+        title: "Rəy moderasiyası",
+        subtitle: "Pasiyent rəylərini nəzərdən keçirin və təsdiqləyin",
+        pending: "Gözləyir",
+        approved: "Təsdiqlənib",
+        rejected: "Rədd edilib",
+        all: "Hamısı",
+        queue: "Moderasiya növbəsi",
+        empty: "Rəy tapılmadı",
+        pendingCount: "{count} gözləyən",
+        approve: "Təsdiqlə",
+        reject: "Rədd et",
+        approvedToast: "Rəy təsdiqləndi",
+        rejectedToast: "Rəy rədd edildi",
+        viewProfile: "Profilə bax",
+        newSubmission: "Yeni rəy",
+        manageReviewsHint: "Pasiyent rəylərini moderasiya et",
+      },
+      documents: {
+        title: "Sənəd təsdiqi",
+        subtitle: "Diplom və lisenziya sənədlərini yoxlayın",
+        empty: "Sənəd tapılmadı",
+        pendingCount: "{count} gözləyən",
+        downloadPdf: "PDF yüklə",
+        demoNoFile: "Demo sənəd — fayl yoxdur",
+      },
     },
     comingSoon: "Tezliklə əlavə olunacaq",
+    appointments: {
+      pending: "Gözləyir",
+      confirmed: "Təsdiqlənib",
+      cancelled: "Ləğv edilib",
+      all: "Hamısı",
+      empty: "Qəbul tapılmadı",
+      pendingCount: "{count} gözləyən",
+      confirm: "Təsdiqlə",
+      cancel: "Ləğv et",
+      confirmedToast: "Qəbul təsdiqləndi",
+      cancelledToast: "Qəbul ləğv edildi",
+      guestPatient: "Qonaq pasiyent",
+    },
+  },
+  credentials: {
+    sectionLabel: "Peşəkar sənədlər",
+    uploadTitle: "Sənəd yükləmə",
+    uploadSubtitle:
+      "Diplom və həkim lisenziyanızı PDF və ya şəkil formatında yükləyin. Admin təsdiqindən sonra profilinizdə sənəd təsdiqi badge görünəcək.",
+    documentVerified: "Sənəd təsdiqlənib",
+    verifiedDescription:
+      "Bu stomatoloqun diplom və lisenziya sənədləri platforma admini tərəfindən yoxlanılıb və təsdiqlənib.",
+    verifiedDocuments: "Təsdiqlənmiş sənədlər",
+    newUpload: "Yeni sənəd",
+    docType: "Sənəd növü",
+    docTitle: "Sənəd adı",
+    docTitlePlaceholder: "məs. Stomatologiya diplomu",
+    file: "Fayl",
+    fileHint: "PDF, JPG, PNG və ya WEBP · maks. 3 MB",
+    submit: "Yüklə",
+    uploading: "Yüklənir...",
+    uploadSuccess: "Sənəd yükləndi — admin təsdiqi gözlənilir",
+    uploadError: "Fayl çox böyükdür və ya yükləmə alınmadı",
+    myDocuments: "Yüklənmiş sənədlərim",
+    noDocuments: "Hələ sənəd yükləməmisiniz",
+    approvedToast: "Sənəd təsdiqləndi",
+    rejectedToast: "Sənəd rədd edildi",
+    types: {
+      diploma: "Diplom",
+      license: "Həkim lisenziyası",
+      certificate: "Sertifikat",
+    },
+  },
+  pages: {
+    about: {
+      title: "Haqqımızda",
+      subtitle: "Stomatoloqlar və pasiyentlər üçün etibarlı platforma",
+      intro:
+        "Dentistry stomatoloqlara peşəkar portfoliyo yaratmaq, pasiyentlərə isə doğru mütəxəssis seçmək imkanı verir. Məqsədimiz şəffaflıq, keyfiyyət və etibar üzərində qurulmuş stomatoloji ekosistem yaratmaqdır.",
+      ctaTitle: "Peşəkar portfolionuzu yaradın",
+      ctaText: "Minlərlə pasiyentə çatın və reputasiyanızı inkişaf etdirin.",
+      values: {
+        trust: {
+          title: "Etibar",
+          description:
+            "Yalnız təsdiqlənmiş stomatoloqlar və moderasiya olunmuş rəylər.",
+        },
+        transparency: {
+          title: "Şəffaflıq",
+          description:
+            "Portfoliolar, sertifikatlar və real pasiyent rəyləri bir yerdə.",
+        },
+        quality: {
+          title: "Keyfiyyət",
+          description:
+            "Peşəkar standartlara uyğun profil və portfoliyo təqdimatı.",
+        },
+      },
+    },
+    contact: {
+      title: "Əlaqə",
+      subtitle: "Suallarınız var? Bizimlə əlaqə saxlayın.",
+      email: "E-poçt",
+      phone: "Telefon",
+      address: "Ünvan",
+      addressValue: "Bakı, Azərbaycan",
+      formTitle: "Mesaj göndərin",
+      name: "Adınız",
+      emailPlaceholder: "E-poçt ünvanınız",
+      message: "Mesajınız",
+      send: "Göndər",
+      sending: "Göndərilir...",
+      success: "Mesajınız qəbul edildi. Tezliklə cavab verəcəyik.",
+    },
+    faq: {
+      title: "Tez-tez verilən suallar",
+      subtitle: "Platforma haqqında ən çox soruşulan suallar",
+      items: {
+        what: {
+          question: "Dentistry nədir?",
+          answer:
+            "Dentistry stomatoloqların peşəkar portfoliyo və reputasiya platformasıdır. Stomatoloqlar işlərini nümayiş etdirə, pasiyentlər isə təsdiqlənmiş mütəxəssisləri kəşf edə bilər.",
+        },
+        verified: {
+          question: "Təsdiqlənmiş stomatoloq nə deməkdir?",
+          answer:
+            "Təsdiqlənmiş stomatoloqların diplomları və peşəkar sənədləri admin tərəfindən yoxlanılıb. Bu, profilin etibarlılığını artırır.",
+        },
+        pricing: {
+          question: "Qiymətlər necə işləyir?",
+          answer:
+            "Pulsuz, Pro və Premium planlarımız var. Hər plan fərqli portfoliyo limitləri və analitika imkanları təklif edir.",
+        },
+        reviews: {
+          question: "Rəylər necə moderasiya olunur?",
+          answer:
+            "Bütün pasiyent rəyləri dərc olunmazdan əvvəl admin tərəfindən yoxlanılır. Bu, saxta və ya uyğunsuz rəylərin qarşısını alır.",
+        },
+        appointment: {
+          question: "Qəbul necə yazılır?",
+          answer:
+            "Stomatoloq profilindən qəbul tarixi və vaxtı seçə bilərsiniz. Qəbullar panelinizdə görünəcək.",
+        },
+      },
+    },
+    privacy: {
+      title: "Məxfilik Siyasəti",
+      subtitle: "Şəxsi məlumatlarınızı necə qoruyuruq",
+      updated: "Son yenilənmə: 2026",
+      sections: {
+        collection: {
+          title: "Məlumat toplanması",
+          content:
+            "Qeydiyyat və profil yaradılması zamanı ad, e-poçt və peşəkar məlumatlar toplanır. Bu məlumatlar yalnız platforma xidmətlərinin göstərilməsi üçün istifadə olunur.",
+        },
+        usage: {
+          title: "Məlumatların istifadəsi",
+          content:
+            "Məlumatlarınız profil göstərilməsi, axtarış nəticələri, təsdiq prosesi və platforma təhlükəsizliyi üçün istifadə edilir.",
+        },
+        sharing: {
+          title: "Məlumatların paylaşılması",
+          content:
+            "Şəxsi məlumatlarınız üçüncü tərəflərlə satılmır. Yalnız qanuni tələblər və ya açıq razılığınız olduqda paylaşılır.",
+        },
+        security: {
+          title: "Təhlükəsizlik",
+          content:
+            "Məlumatlarınızı qorumaq üçün müasir şifrələmə və təhlükəsizlik tədbirləri tətbiq edirik.",
+        },
+        rights: {
+          title: "Hüquqlarınız",
+          content:
+            "Məlumatlarınıza baxmaq, düzəltmək və ya silmək hüququnuz var. Bunun üçün bizimlə əlaqə saxlayın.",
+        },
+      },
+    },
+    terms: {
+      title: "İstifadə Şərtləri",
+      subtitle: "Platformadan istifadə qaydaları",
+      updated: "Son yenilənmə: 2026",
+      sections: {
+        acceptance: {
+          title: "Şərtlərin qəbulu",
+          content:
+            "Dentistry platformasından istifadə etməklə bu şərtləri qəbul etmiş olursunuz.",
+        },
+        accounts: {
+          title: "Hesablar",
+          content:
+            "Hesab məlumatlarınızın düzgünlüyünə və təhlükəsizliyinə görə məsuliyyət daşıyırsınız.",
+        },
+        content: {
+          title: "Məzmun",
+          content:
+            "Paylaşdığınız portfoliyo və profil məlumatlarının doğruluğuna görə məsuliyyət daşıyırsınız.",
+        },
+        conduct: {
+          title: "Davranış qaydaları",
+          content:
+            "Saxta məlumat, təhqiramiz rəy və ya qanunsuz fəaliyyət qadağandır.",
+        },
+        liability: {
+          title: "Məsuliyyətin məhdudlaşdırılması",
+          content:
+            "Dentistry stomatoloji xidmətlərin keyfiyyətinə görə birbaşa məsuliyyət daşımır.",
+        },
+      },
+    },
   },
 } as const;
 

@@ -9,6 +9,7 @@ import {
   DentistDashboard,
   PatientDashboard,
 } from "@/features/dashboard/ui/dashboard-content";
+import { AdminLayout } from "@/features/dashboard/ui/admin/admin-layout";
 import { UserRole } from "@/types/enums";
 import { mockAuthService } from "@/features/auth/services/mock-auth.service";
 
@@ -55,6 +56,14 @@ export function DashboardPageContent() {
 
   const { title, subtitle } = titles[activeUser.role];
 
+  if (activeUser.role === UserRole.ADMIN) {
+    return (
+      <AdminLayout>
+        <AdminDashboard />
+      </AdminLayout>
+    );
+  }
+
   return (
     <PageLayout>
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
@@ -70,7 +79,6 @@ export function DashboardPageContent() {
         {activeUser.role === UserRole.DOCTOR && (
           <DentistDashboard dentistSlug={activeUser.dentistSlug} />
         )}
-        {activeUser.role === UserRole.ADMIN && <AdminDashboard />}
       </div>
     </PageLayout>
   );

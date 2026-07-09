@@ -1,6 +1,5 @@
-import { notFound } from "next/navigation";
 import { getDentistBySlug } from "@/features/dentist/data/mock-dentists";
-import { DentistProfileContent } from "@/features/dentist/ui/dentist-profile-content";
+import { DentistProfilePageContent } from "@/features/dentist/ui/dentist-profile-page-content";
 import { PageLayout } from "@/widgets/page-layout/page-layout";
 
 interface DentistProfilePageProps {
@@ -25,11 +24,17 @@ export default async function DentistProfilePage({
   const { slug } = await params;
   const dentist = getDentistBySlug(slug);
 
-  if (!dentist) notFound();
+  if (!dentist) {
+    return (
+      <PageLayout>
+        <DentistProfilePageContent slug={slug} />
+      </PageLayout>
+    );
+  }
 
   return (
     <PageLayout>
-      <DentistProfileContent dentist={dentist} />
+      <DentistProfilePageContent slug={slug} />
     </PageLayout>
   );
 }

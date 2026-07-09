@@ -1,6 +1,5 @@
 "use client";
 
-import { Clock, Wrench } from "lucide-react";
 import type { MockPortfolioCase } from "@/features/dentist/data/mock-dentists";
 import { resolveLocalized } from "@/lib/i18n/types";
 import { useTranslation } from "@/providers/locale-provider";
@@ -15,7 +14,7 @@ export function DentistPortfolioSection({ cases }: DentistPortfolioSectionProps)
 
   if (cases.length === 0) {
     return (
-      <div className="rounded-2xl border border-dashed border-border py-16 text-center text-muted-foreground">
+      <div className="rounded-md border border-dashed border-border py-16 text-center text-muted-foreground">
         {t("profile.noPortfolio")}
       </div>
     );
@@ -24,10 +23,7 @@ export function DentistPortfolioSection({ cases }: DentistPortfolioSectionProps)
   return (
     <div className="space-y-8">
       {cases.map((item) => (
-        <article
-          key={item.id}
-          className="overflow-hidden rounded-2xl border border-border bg-card shadow-soft"
-        >
+        <article key={item.id} className="surface-card overflow-hidden rounded-md">
           <div className="p-6 pb-4">
             <h3 className="text-xl font-semibold">
               {resolveLocalized(item.title, locale)}
@@ -36,52 +32,61 @@ export function DentistPortfolioSection({ cases }: DentistPortfolioSectionProps)
               {resolveLocalized(item.description, locale)}
             </p>
             <div className="mt-4 flex flex-wrap gap-4 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5">
-                <Wrench className="h-4 w-4" />
-                {t("profile.technique")}: {resolveLocalized(item.technique, locale)}
+              <span>
+                {t("profile.technique")}:{" "}
+                {resolveLocalized(item.technique, locale)}
               </span>
-              <span className="flex items-center gap-1.5">
-                <Clock className="h-4 w-4" />
-                {t("profile.duration")}: {resolveLocalized(item.duration, locale)}
-              </span>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-1 px-1">
-            <div className="relative">
-              <div
-                className={cn(
-                  "aspect-[4/3] bg-gradient-to-br",
-                  item.beforeColor
-                )}
-              />
-              <span className="absolute bottom-3 left-3 rounded-lg bg-black/60 px-2 py-1 text-xs font-medium text-white">
-                {t("common.before")}
-              </span>
-            </div>
-            <div className="relative">
-              <div
-                className={cn(
-                  "aspect-[4/3] bg-gradient-to-br",
-                  item.afterColor
-                )}
-              />
-              <span className="absolute bottom-3 left-3 rounded-lg bg-black/60 px-2 py-1 text-xs font-medium text-white">
-                {t("common.after")}
+              <span>
+                {t("profile.duration")}:{" "}
+                {resolveLocalized(item.duration, locale)}
               </span>
             </div>
           </div>
 
-          {item.galleryColors.length > 0 && (
-            <div className="grid grid-cols-3 gap-1 p-1">
-              {item.galleryColors.map((color, i) => (
-                <div
-                  key={i}
-                  className={cn("aspect-square bg-gradient-to-br", color)}
+          <div className="grid grid-cols-2 gap-px bg-border">
+            <div className="relative aspect-[4/3] bg-muted">
+              {item.beforeImageUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={item.beforeImageUrl}
+                  alt={t("common.before")}
+                  className="h-full w-full object-cover"
                 />
-              ))}
+              ) : (
+                <div
+                  className={cn(
+                    "flex h-full w-full items-end bg-gradient-to-br p-3",
+                    item.beforeColor
+                  )}
+                >
+                  <span className="rounded bg-black/50 px-2 py-0.5 text-xs text-white">
+                    {t("common.before")}
+                  </span>
+                </div>
+              )}
             </div>
-          )}
+            <div className="relative aspect-[4/3] bg-muted">
+              {item.afterImageUrl ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={item.afterImageUrl}
+                  alt={t("common.after")}
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <div
+                  className={cn(
+                    "flex h-full w-full items-end bg-gradient-to-br p-3",
+                    item.afterColor
+                  )}
+                >
+                  <span className="rounded bg-black/50 px-2 py-0.5 text-xs text-white">
+                    {t("common.after")}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
         </article>
       ))}
     </div>
